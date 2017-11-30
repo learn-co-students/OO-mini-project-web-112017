@@ -12,19 +12,27 @@ class Recipe
   end
 
   def most_popular
-    # Recipe.most_popular should return the recipe instance with the highest number of users (the recipe that has the most recipe cards) should return all of the recipe instances
+    # should return the recipe instance with the highest number of users (the recipe that has the most recipe cards)
   end
 
   def users
     # Recipe#users should return the user instances who have recipe cards with this recipe
+    instance = RecipeCard.all.select {|card| card.recipe == self }
+    instance.map {|item| item.user }
   end
 
   def ingredients
     # Recipe#ingredients should return all of the ingredients in this recipe
+    self.ingredients
   end
 
   def allergens
   # Recipe#allergens should return all of the ingredients in this recipe that are allergens
+    Allergens.all.select { |allergy|
+      allergy.ingredient ==
+      #any ingredient in self.ingredients
+      #return all of those that match
+    }
   end
 
   def add_ingredients(arr)
