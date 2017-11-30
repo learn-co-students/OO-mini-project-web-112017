@@ -17,7 +17,7 @@ class Ingredient
   # Ingredient.most_common_allergen should return the ingredient instance
   # that the highest number of users are allergic to
     allergen_ingredients = Allergen.all.collect {|allergen| allergen.ingredient}
-    allergen_ingredients.map {|ingredient| [allergen_ingredients.count(ingredient), ingredient]} #.max[1]
+    allergen_ingredients.map {|ingredient| [allergen_ingredients.count(ingredient), ingredient]}.max[1]
   end
 
 
