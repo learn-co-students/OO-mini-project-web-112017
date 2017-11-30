@@ -1,5 +1,5 @@
 class User
-  attr_accessor :name
+  attr_reader :name
   @@all = []
 
   def initialize(name)
@@ -34,9 +34,7 @@ class User
 
   def top_three_recipes
     # User#top_three_recipes should return the top three highest rated recipes for this user.
-    self.recipes.select { |recipe|
-      recipe.rating
-    }.sort
+      self.recipes.sort_by {|recipe| recipe.rating }.last(3).reverse
   end
 
   def most_recent_recipe

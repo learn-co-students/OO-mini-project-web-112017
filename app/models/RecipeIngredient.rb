@@ -1,5 +1,5 @@
 class RecipeIngredient
-  attr_accessor :recipe, :ingredient
+  attr_reader :recipe, :ingredient
   @@all = []
 
   def initialize (recipe, ingredient)
@@ -10,16 +10,6 @@ class RecipeIngredient
 
   def self.all
     @@all
-  end
-
-  def ingredient
-    # RecipeIngredient#ingredient should return the ingredient instance
-    self.ingredient
-  end
-
-  def recipe
-    # RecipeIngredient#recipe should return the recipe instance
-    self.recipe
   end
 
 end
