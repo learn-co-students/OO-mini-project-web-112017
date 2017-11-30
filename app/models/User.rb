@@ -1,8 +1,9 @@
 class User
-  attr_accessor
+  attr_accessor :name
   @@all = []
 
-  def initialize
+  def initialize(name)
+    @name = name
     @@all << self
   end
 
@@ -20,10 +21,14 @@ class User
 
   def declare_allergen (ingredient)
     # User#declare_allergen should accept an ingredient instance as an argument, and create a new allergen instance for this user and the given ingredient
+    Allergen.new(self,ingredient)
   end
 
   def allergens
     # User#allergens should return all of the ingredients this user is allergic to
+    Allergen.all.select do |allergy|
+      allergy.user == self
+    end
   end
 
   def top_three_recipes
