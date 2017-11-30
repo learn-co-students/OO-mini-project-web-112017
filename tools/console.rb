@@ -39,5 +39,8 @@ sally_recipe2 = RecipeCard.new(steak, sally, "4/20/17", 5)
 sally_recipe3 = RecipeCard.new(cheese, sally, "3/2/93", 1)
 sally_recipe4 = RecipeCard.new(chicken_soup, sally, "1/20/17", 2)
 
+sally.declare_allergen(butter)
+gustave.declare_allergen(spices)
+
 
 binding.pry

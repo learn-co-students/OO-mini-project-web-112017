@@ -12,10 +12,9 @@ class Ingredients
   end
 
   def self.most_common_allergen
-    # Ingredient.most_common_allergen should return the ingredient instance that the highest number of users are allergic to
-    # binding.pry
-    Allergen.all.each { |allergy|
+    Allergen.all.each do |allergy|
       allergy.ingredient.uniq.count
-    }
+    end
   end
+  
 end

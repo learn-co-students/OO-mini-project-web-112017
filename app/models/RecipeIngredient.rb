@@ -1,5 +1,5 @@
 class RecipeIngredient
-  attr_reader :recipe, :ingredient
+  attr_accessor :recipe, :ingredient
   @@all = []
 
   def initialize (recipe, ingredient)
