@@ -61,21 +61,4 @@ def allergens
   end
 end
 
-
-
-# def allergens
-#   ingredients = self.ingredients
-#   allergens = Allergen.all
-#   binding.pry
-#   ingredients.select do |ingredient|
-#     allergens.include?(ingredient)
-#   end
-# end
-
-# def self.count(item)
-#   RecipeCard.all.select do |recipe_card|
-#     recipe_card.recipe == item
-#   end
-# end
-
 end

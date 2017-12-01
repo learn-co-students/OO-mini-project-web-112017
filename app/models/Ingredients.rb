@@ -1,3 +1,4 @@
+
 class Ingredients
 
 attr_accessor :name
@@ -9,7 +10,7 @@ attr_accessor :name
   end
 
   def self.all
-    @all
+    @@all
   end
 
   def self.all_users_allergens

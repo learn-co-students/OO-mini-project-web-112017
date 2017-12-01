@@ -1,4 +1,3 @@
-
 class Allergen
 
 attr_accessor :user, :ingredient
@@ -15,4 +14,4 @@ def self.all
   @@all
 end
 
-end
+
