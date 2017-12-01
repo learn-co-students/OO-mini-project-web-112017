@@ -1,23 +1,28 @@
-class Ingredient
 
-  @@all = []
+class Ingredients
+
+attr_accessor :name
+@@all = []
 
   def initialize(name)
-    @name = name 
+    @name = name
     @@all << self
   end
 
   def self.all
     @@all
-  #   Allergen.all.collect do |allergen|
-  #     allergen.ingredient
-  # end.uniq
+  end
+
+  def self.all_users_allergens
+    Allergen.all.map do |allergen|
+    allergen.ingredient
+    end
   end
 
   def self.most_common_allergen
-    #should return the ingredient instance that the highest number of users are allergic to
-    all_ingredient = Allergen.all.collect {|allergens| allergens.ingredient}
-    all_ingredient.map {|ingredient| [all_ingredient.count(ingredient),ingredient]}.max[1]
+    arr = self.all_users_allergens
+    freq = arr.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    arr.max_by { |v| freq[v] }
   end
 
 end

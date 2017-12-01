@@ -1,91 +1,64 @@
 class Recipe
 
-  @@all = []
+attr_accessor :name
 
-  def initialize(name)
-    @name = name
-    @@all << self
+@@all = []
+
+def initialize(name)
+  @name = name
+  @@all << self
+end
+
+def self.all
+  @@all
+end
+
+def recipe_cards
+  RecipeCard.all.select do |recipe_card|
+    recipe_card.recipe == self
   end
+end
 
-  def self.all
-    @@all
-    # RecipeIngredient.all.collect do |recipeingredient|
-    #   recipeingredient.recipe
-    # end.uniq
+def users
+  recipe_cards.collect do |recipe_card|
+    recipe_card.user
   end
+end
 
-  def self.most_popular
-    #return the recipe instance with the highest number of users
-    # (the recipe that has the most recipe cards) should return all of the recipe instances
-    all_recipe_names = RecipeCard.all.collect {|recipecard| recipecard.recipe}
-    arr = all_recipe_names.map {|recipe| [all_recipe_names.count(recipe),recipe]}.uniq #.reverse
-
-    max = nil
-    most_pop = []
-    arr.each do |count_recipe|
-      if max == nil || max == count_recipe[0]
-         max = count_recipe[0]
-         most_pop << count_recipe[1]
-      elsif max < count_recipe[0]
-        max = count_recipe[0]
-        most_pop = count_recipe[1]
-      else
-         max
-         most_pop
-       end
-    end
-    return most_pop
-
-
-    # max1 =all_recipe_names.map {|recipe| [all_recipe_names.count(recipe),recipe]}.sort[-1][1]
-    # max2 = all_recipe_names.map {|recipe| [all_recipe_names.count(recipe),recipe]}.sort[-2][1]
-    # if max1==max2
-    #   [max1, max2]
-    # else
-    #   max1 #.index
-    # end
-
-    ##all_recipe_names[max_index]
-
+def self.all_users_recipes
+  RecipeCard.all.map do |recipe_card|
+  recipe_card.recipe
   end
+end
 
-  def recipe_cards
-    RecipeCard.all.select do |recipecard|
-      recipecard.recipe == self
-    end
-  end
+def self.most_popular
+  arr = Recipe.all_users_recipes
+  freq = arr.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+  arr.max_by { |v| freq[v] }
+end
 
-  def users
-    #should return the user instances who have recipe cards with this recipe
-    self.recipe_cards.collect do |recipecard|
-      recipecard.user
-    end
+def add_ingredients(array)
+  array.map do |ingredient|
+    RecipeIngedient.new(self, ingredient)
   end
+end
 
-  def recipe_ingredient
-    RecipeIngredient.all.select do |recipeingredient|
-      recipeingredient.recipe == self
-    end
+def ingredients
+   RecipeIngedient.all.select do |recipe_ingredient|
+    recipe_ingredient.recipe == self
+  end.map do |recipe_ingredient|
+    recipe_ingredient.ingredient
   end
+end
 
-  def ingredients
-    #should return all of the ingredients in this recipe
-      self.recipe_ingredient.collect do |recipeingredient|
-        recipeingredient.ingredient
-      end
+def allergens
+  ingredients = self.ingredients
+  allergens = Allergen.all.map do |allergen|
+    allergen.ingredient
   end
+  ingredients.select do |ingredient|
+    ingredient if allergens.include?(ingredient)
+  end
+end
 
-  def allergens
-    #should return all of the ingredients in this recipe that are allergens
-    self.ingredients.select do |ingredient|
-      Allergen.all_ingredient.include?(ingredient)
-    end
-  end
-
-  def add_ingredients(ing_arr)
-    #should take an array of ingredient instances as an argument, and associate each of those ingredients with this recipe
-    ing_arr.each do |ingredient|
-      RecipeIngredient.new(self,ingredient)
-    end
-  end
 end
